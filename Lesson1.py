@@ -34,7 +34,7 @@ while True:  #Работаем до остановки/ошибке в цикл�
     # Формируем запрос в телеграмм апи для получения от бота обновлений
     tm_update_param = {'offset': offset,
                        'allowed_updates': '["message"]'}
-    tm_update_response = r.get(f"{TELTGRAM_BASE_URL}/getUpdates",params=tm_update_param)
+    tm_update_response = r.get("{}/getUpdates".format(TELTGRAM_BASE_URL),params=tm_update_param)
     telegramm_jdata = tm_update_response.json()
 
     # Идем циклом по новым сообщениям боту
@@ -87,6 +87,6 @@ while True:  #Работаем до остановки/ошибке в цикл�
             tm_send_param = { 'chat_id': message["message"]["chat"]["id"],
                               'text': bot_message,
                               'parse_mode': 'Markdown'}
-            tm_send_response = r.get(f"{TELTGRAM_BASE_URL}/sendMessage", params=tm_send_param)
+            tm_send_response = r.get("{}/sendMessage".format(TELTGRAM_BASE_URL), params=tm_send_param)
 
     time.sleep(15) # Поскольку не понял как делать "длинные" запросы без поллинга, не наглею, 4 запроса в минуту делаю
